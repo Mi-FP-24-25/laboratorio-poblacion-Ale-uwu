@@ -24,7 +24,16 @@ def lee_poblaciones(ruta_fichero):
     @return: lista de tuplas con la información del fichero
     @rtype: RegistroPoblacion
     """
-    pass
+    with open(ruta_fichero,encoding= 'utf-8') as f:
+        aux = []
+        lector = csv.reader(f)
+        for pais,codigo,año,censo in lector:
+            pais = pais.strip()
+            codigo = codigo.strip()
+            año = int(año.strip())
+            censo = int(censo.strip())
+            aux.append(RegistroPoblacion(pais,codigo,año,censo))
+        return aux
 
 
 def calcula_paises(poblaciones):
@@ -37,7 +46,7 @@ def calcula_paises(poblaciones):
     @return: lista de paises, ordenada alfabéticamente, sin duplicados
     @rtype: list(str)
     """
-    pass
+    return {poblacion.pais for poblacion in poblaciones}
 
 
 def filtra_por_pais(poblaciones, pais_o_codigo):
@@ -52,7 +61,7 @@ def filtra_por_pais(poblaciones, pais_o_codigo):
     @return: lista de tuplas (año, censo) seleccionadas
     @rtype: list(tuple(int, int))
     """
-    pass
+    return [(poblacion.año,poblacion.censo) for poblacion in poblaciones if poblacion.pais == pais_o_codigo or poblacion.codigo == pais_o_codigo]
 
 
 ##############################################################################################
@@ -72,7 +81,7 @@ def filtra_por_paises_y_anyo(poblaciones, año, paises):
     @return: lista de tuplas (pais, censo) seleccionadas
     @rtype: list(tuple(str,int))
     """
-    pass
+    return [(poblacion.pais,poblacion.censo) for poblacion in poblaciones if poblacion.pais in paises and poblacion.año == año]
 
 
 ##############################################################################################
@@ -90,9 +99,11 @@ def muestra_evolucion_poblacion(poblaciones, pais_o_codigo):
     """
     # TODO Complete la función para asignar los valores correctos
     #  a las variables titulo, lista_años y lista_habitantes
-    titulo = ""
-    lista_años = []
-    lista_habitantes = []
+    
+    
+    titulo = "Evolucion " + pais_o_codigo
+    lista_años = [poblacion.año for poblacion in poblaciones if poblacion.pais == pais_o_codigo or poblacion.codigo == pais_o_codigo ]
+    lista_habitantes = [poblacion.censo for poblacion in poblaciones if poblacion.pais == pais_o_codigo or poblacion.codigo == pais_o_codigo]
 
     # Estas instrucciones dibujan la gráfica
     plt.title(titulo)
@@ -117,9 +128,9 @@ def muestra_comparativa_paises_anyo(poblaciones, año, paises):
     """
     # TODO Complete la función para asignar los valores correctos
     #  a las variables titulo, lista_paises y lista_habitantes
-    titulo = ""
-    lista_paises = []
-    lista_habitantes = []
+    titulo = "Poblacion en el año "+ str(año)
+    lista_paises = [poblacion.pais for poblacion in poblaciones if poblacion.pais in paises and poblacion.año == año]
+    lista_habitantes = [poblacion.censo for poblacion in poblaciones if poblacion.pais in paises and poblacion.año == año]
 
     # Estas instrucciones dibujan la gráfica
     plt.title(titulo)
