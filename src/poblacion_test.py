@@ -106,7 +106,7 @@ def test_muestra_comparativa_paises_anyo(datos):
 #  Programa principal
 ################################################################
 if __name__ == "__main__":
-    datos = lee_poblaciones("data/population.csv")
+    datos = lee_poblaciones("laboratorio-poblacion-Ale-uwu\data\population.csv")
 
     test_lee_poblaciones(datos)
     test_calcula_paises(datos)

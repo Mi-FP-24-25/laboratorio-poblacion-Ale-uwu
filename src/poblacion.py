@@ -16,7 +16,7 @@ RegistroPoblacion = namedtuple("RegistroPoblacion", "pais, codigo, año, censo")
 ############################################################################################
 def lee_poblaciones(ruta_fichero):
     """
-    Lee el fichero de entrada y devuelve una lista de tuplas poblaciones
+    Lee el fichero de entrada y devuelve una lista de tuplas poblaciones    
 
     @param fichero: nombre del fichero de entrada
     @type fichero: str
@@ -46,7 +46,8 @@ def calcula_paises(poblaciones):
     @return: lista de paises, ordenada alfabéticamente, sin duplicados
     @rtype: list(str)
     """
-    return {poblacion.pais for poblacion in poblaciones}
+    conj = {poblacion.pais for poblacion in poblaciones}
+    return sorted(conj)
 
 
 def filtra_por_pais(poblaciones, pais_o_codigo):
